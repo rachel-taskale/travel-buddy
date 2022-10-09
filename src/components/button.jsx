@@ -8,7 +8,7 @@ function QuizButton(props){
         <Button 
             colorScheme='teal' 
             variant={`${active? "outline":"solid"}`}
-            onClick={()=> {setActive(active==false? true : false); console.log(active)}}
+            onClick={()=> {setActive(active===false? true : false); console.log(active)}}
         >
                 {props.name}
         </Button>

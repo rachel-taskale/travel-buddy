@@ -8,12 +8,17 @@ import { card_data, quiz_categories } from "../config";
 const Quiz = (props) =>{
 
     const[data, setData] = useState(props.card_data);
-    const[activeButton, setActiveButton] = useState()
+    const[reset, setReset] = useState(false)
+    const [active, setActive] = useState('false');
     let filters = [];
     
     // Adds category chosen to filter list
     function handleFilterButtonClick(item){
         console.log(item)
+        if (filters === quiz_categories){
+            filters = []
+        }
+
         if (filters.includes(item) === false){
             filters.push(item);
             console.log(filters)
@@ -27,20 +32,24 @@ const Quiz = (props) =>{
     function resetFilters(){
         filters = quiz_categories;
         setData(props.card_data);
+        // setReset(true)
     }
 
 
     // Handles the submit call and update data based on filter categories chosen
     function handleSubmit(){
         console.log(filters)
-        let temp  =[]
+        let temp  = []
         for (let i in filters){
             for (let j in props.card_data){
-                if (props.card_data[j].categories.includes(filters[i]) && temp.includes(props.card_data[j])==false){
+                console.log(filters[i])
+                if (props.card_data[j].categories.includes(filters[i]) && temp.includes(props.card_data[j])===false){
+                    
                     temp.push(props.card_data[j])
                 }
             }
         }
+        console.log(temp)
         setData(temp);
         console.log(data)
     }
@@ -51,12 +60,17 @@ const Quiz = (props) =>{
                 <VStack border='1px solid black'>
                     <Wrap>
                         {props.attributes.map((item, index) => 
-                            (               
-                            <QuizButton
-                                className="quiz-button"
-                                name = {item}
+                            (     
+                                <Box 
                                 onClick={() => handleFilterButtonClick(item)}
-                            />    
+                                >
+                                    <QuizButton
+                                        className="quiz-button"
+                                        name = {item}
+                                        
+                                        
+                                    />
+                                </Box>    
                             ))}
                             
                             {filters.map((name, indx) =>{
