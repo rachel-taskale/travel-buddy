@@ -1,45 +1,36 @@
 import React from 'react';
 import {
-    Table,
-    Thead,
-    Tbody,
-    Tfoot,
-    Tr,
-    Th,
-    Td,
-    TableCaption,
-    TableContainer,
     Text,
     Box,
     Image,
-    Wrap
+    Wrap,
+    Center,
+    WrapItem
   } from '@chakra-ui/react';
+  import {category_hex} from '../config';
 
   
 
 
-const VacationTable = React.forwardRef(
-    ({card_data, hex_colors}) => {
+const VacationTable = React.forwardRef(({card_data}) => {
+
     return (
-        <Box >
+        <Center>
+        <Box maxW='90vw'>
             <Wrap spacing='30px'>
             {card_data.map((item, index) => 
-                
-                (               
-                    <Box  boxShadow='base' maxWidth='20vw'>
-                        <Image h='20vh' w='100%'/>
+                (
+                    <Box  boxShadow='base' maxWidth='20vw' mb='100px'>
+                        <Image h='20vh' src='https://media.architecturaldigest.com/photos/5da74823d599ec0008227ea8/16:9/w_2560%2Cc_limit/GettyImages-946087016.jpg' w='100%'/>
                         <Text className='title-2' fontWeight='bold'>
                             {item.location}
                         </Text>
-                        
                         <Wrap>
                             {item.categories.map((category, index) => 
-                    
                                 ( 
-                                
-                                    <Box bgColor={hex_colors[category]} w='fit-content' pl={2} pr={2} borderRadius={5}>
+                                    <WrapItem bgColor={category_hex[category]} w='fit-content' pl={2} pr={2} borderRadius={5}>
                                         {category}
-                                        </Box>
+                                        </WrapItem>
                             ))}
                         </Wrap>
                         <Text className='title-2'>
@@ -49,11 +40,9 @@ const VacationTable = React.forwardRef(
 
                     ))}
             </Wrap>
-
         </Box>
-        
+        </Center>
     );
-
 })
 
 export default VacationTable;
