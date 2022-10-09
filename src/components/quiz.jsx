@@ -2,9 +2,7 @@ import { Box, Text, FormControl, Wrap, Button, Spacer, Input, Center, HStack, VS
 import {React, useState} from 'react';
 import VacationTable from "./table";
 import QuizButton from "./button";
-
-
-
+import { card_data, quiz_categories } from "../config";
 
 
 const Quiz = (props) =>{
@@ -13,6 +11,7 @@ const Quiz = (props) =>{
     const[activeButton, setActiveButton] = useState()
     let filters = [];
     
+    // Adds category chosen to filter list
     function handleFilterButtonClick(item){
         console.log(item)
         if (filters.includes(item) === false){
@@ -24,19 +23,20 @@ const Quiz = (props) =>{
         }
     }
 
-
+    // Will reset filters to all
     function resetFilters(){
-        filters = []
-        console.log(filters)
+        filters = quiz_categories;
+        setData(props.card_data);
     }
 
 
+    // Handles the submit call and update data based on filter categories chosen
     function handleSubmit(){
         console.log(filters)
         let temp  =[]
         for (let i in filters){
             for (let j in props.card_data){
-                if (props.card_data[j].categories.includes(filters[i]) && !temp.includes(props.card_data[j])){
+                if (props.card_data[j].categories.includes(filters[i]) && temp.includes(props.card_data[j])==false){
                     temp.push(props.card_data[j])
                 }
             }
