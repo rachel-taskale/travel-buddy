@@ -1,5 +1,6 @@
 import { Box, Text, FormControl, Wrap, Button, Spacer, Input, Center, HStack, VStack, Flex } from "@chakra-ui/react";
-import {React, useState} from 'react';
+import * as ReactDOM from 'react-dom';
+import {React, useEffect, useState} from 'react';
 import VacationTable from "./table";
 import QuizButton from "./button";
 import { card_data, quiz_categories } from "../config";
@@ -8,8 +9,22 @@ import { card_data, quiz_categories } from "../config";
 const Quiz = (props) =>{
 
     const[data, setData] = useState(props.card_data);
-    const[reset, setReset] = useState(false)
-    const [active, setActive] = useState('false');
+    // const [quizButtonState, setQuizButtonState] = useState({
+    //     'cheap flights':false,
+    //     'city':false,
+    //     'beach':false,
+    //     'mountains':false,
+    //     'within 50 mi':false,
+    //     'within 100 mi':false,
+    //     'vineyard':false,
+    //     'africa':false,
+    //     'asia':false,
+    //     'europe':false,
+    //     'north america':false
+    // })
+
+
+
     let filters = [];
     
     // Adds category chosen to filter list
@@ -22,17 +37,30 @@ const Quiz = (props) =>{
         if (filters.includes(item) === false){
             filters.push(item);
             console.log(filters)
+
+            const newButton=(item)=>{
+                return (<Button>{item}</Button>);
+            }
+            // const root = document.getElementsByClassName('chosen-filters');
+            // const child = document.createElement('div');
+            // child.innerHTML = `<Button >${item}
+            //                     <Button  w='1px' h='1px'>&#10006;</Button>
+            //                     </Button>`;
+            // root[0].appendChild(child);
+
         }else{
             filters = filters.filter((x)=>x!==item)
             console.log(filters)
         }
+        
+        // setQuizButtonState(quizButtonState[item]=true)
+        // console.log(quizButtonState)
     }
 
     // Will reset filters to all
     function resetFilters(){
-        filters = quiz_categories;
+        filters = [];
         setData(props.card_data);
-        // setReset(true)
     }
 
 
@@ -57,44 +85,43 @@ const Quiz = (props) =>{
     return (
         <Box pb='100px' pt='50px' maxW='60vw'>
             <FormControl> 
-                <VStack border='1px solid black'>
+                <HStack>
                     <Wrap>
                         {props.attributes.map((item, index) => 
                             (     
-                                <Box 
-                                onClick={() => handleFilterButtonClick(item)}
-                                >
+                                <Box onClick={() => handleFilterButtonClick(item)}>
                                     <QuizButton
                                         className="quiz-button"
-                                        name = {item}
-                                        
-                                        
+                                        name = {item}  
                                     />
                                 </Box>    
                             ))}
-                            
-                            {filters.map((name, indx) =>{
-                            <Text>{name}</Text>
-                        })}
+                
                     </Wrap>
-                    <Button
-                        placement="left"
+                    
+                    <Spacer/>
+                    <Button 
+                        
                         bgColor='red.200' 
-                        mb='20px'
                         onClick={()=>resetFilters()}
                     >Reset</Button>
-                </VStack>
-                <HStack mb='20px'>
-                    <Text mt='20px' fontWeight='bold'>Where are you located?</Text>
-                    <Input variant='outline' placeholder='location' border='1px solid black'  w='25vw'></Input>
+                </HStack>
+                
+                <HStack mb='20px' mt='20px'>
+                    <Text fontWeight='bold'>Where are you located?</Text>
+                    <Input variant='outline' placeholder='location'  w='25vw'></Input>
                     <Spacer />
                     <Button type='submit' onClick={()=>handleSubmit()} boxShadow='md'>Submit</Button>
                 </HStack >
-                
             </FormControl>
+            <HStack className='chosen-filters'>
+                {filters.map((item, idx)=>{
+                    <Button>{item}</Button>
+                })}
+            </HStack>
             <VacationTable
                 card_data={data} >
-                </VacationTable>
+            </VacationTable>
         </Box>
     );
 

@@ -28,3 +28,10 @@
   background-color: white;
   color:red;
 }
+
+.modal-sticky{
+  position:fixed;
+  right:3vw;
+  bottom:5vh;
+
+}

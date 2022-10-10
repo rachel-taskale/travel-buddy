@@ -5,7 +5,9 @@ import {
     Image,
     Wrap,
     Center,
-    WrapItem
+    WrapItem,
+    VStack
+
   } from '@chakra-ui/react';
   import {category_hex} from '../config';
 
@@ -15,12 +17,14 @@ import {
 const VacationTable = React.forwardRef(({card_data}) => {
 
     return (
-        <Center>
-        <Box maxW='90vw'>
-            <Wrap spacing='30px'>
+        <Box>
+            <Center>
+
+            <Wrap spacing='1vw'>
             {card_data.map((item, index) => 
                 (
-                    <Box  boxShadow='base' maxWidth='20vw' mb='100px'>
+                    <Box  boxShadow='base' maxWidth='19vw' minWidth='15vw' mb='100px'>
+                        <VStack>
                         <Image h='20vh' src='https://media.architecturaldigest.com/photos/5da74823d599ec0008227ea8/16:9/w_2560%2Cc_limit/GettyImages-946087016.jpg' w='100%'/>
                         <Text className='title-2' fontWeight='bold'>
                             {item.location}
@@ -36,12 +40,15 @@ const VacationTable = React.forwardRef(({card_data}) => {
                         <Text className='title-2'>
                             {item.description}
                         </Text>
+                        </VStack>
                     </Box>
 
                     ))}
+
             </Wrap>
+            </Center>
         </Box>
-        </Center>
+        
     );
 })
 
