@@ -1,3 +1,12 @@
+# Todos:
+* OnReset button should update state of Quiz Buttons to not active
+* OnClick of Quiz Buttons should show chosen filters below?
+* Connect to Firebase database
+* Add in real data
+* Ranking system: most number of filters matched to location 1st then alphabetical order (buckets + lexographical sorting)
+* Distance calculations from current location to places
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
