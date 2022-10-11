@@ -96,12 +96,10 @@ const Quiz = (props) =>{
                                     />
                                 </Box>    
                             ))}
-                
                     </Wrap>
-                    
                     <Spacer/>
                     <Button 
-                        
+                        mt='-100px'
                         bgColor='red.200' 
                         onClick={()=>resetFilters()}
                     >Reset</Button>
