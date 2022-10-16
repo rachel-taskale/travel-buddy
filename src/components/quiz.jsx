@@ -2,65 +2,65 @@ import { Box, Text, FormControl, Wrap, Button, Spacer, Input, Center, HStack, VS
 import * as ReactDOM from 'react-dom';
 import {React, useEffect, useState} from 'react';
 import VacationTable from "./table";
-import QuizButton from "./button";
+// import QuizButton from "./button";
+import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { card_data, quiz_categories } from "../config";
 
 
 const Quiz = (props) =>{
 
     const[data, setData] = useState(props.card_data);
-    // const [quizButtonState, setQuizButtonState] = useState({
-    //     'cheap flights':false,
-    //     'city':false,
-    //     'beach':false,
-    //     'mountains':false,
-    //     'within 50 mi':false,
-    //     'within 100 mi':false,
-    //     'vineyard':false,
-    //     'africa':false,
-    //     'asia':false,
-    //     'europe':false,
-    //     'north america':false
-    // })
+    const [quizButtonState, setQuizButtonState] = useState({
+        'cheap flights':false,
+        'city':false,
+        'beach':false,
+        'mountains':false,
+        'within 50 mi':false,
+        'within 100 mi':false,
+        'vineyard':false,
+        'africa':false,
+        'asia':false,
+        'europe':false,
+        'north america':false
+    })
 
 
 
     let filters = [];
     
-    // Adds category chosen to filter list
     function handleFilterButtonClick(item){
         console.log(item)
-        if (filters === quiz_categories){
-            filters = []
-        }
+        setQuizButtonState(prevState=>({
+          ...prevState,
+          [item] : !quizButtonState[item]
+        }))
 
-        if (filters.includes(item) === false){
-            filters.push(item);
-            console.log(filters)
-
-            const newButton=(item)=>{
-                return (<Button>{item}</Button>);
-            }
-            // const root = document.getElementsByClassName('chosen-filters');
-            // const child = document.createElement('div');
-            // child.innerHTML = `<Button >${item}
-            //                     <Button  w='1px' h='1px'>&#10006;</Button>
-            //                     </Button>`;
-            // root[0].appendChild(child);
-
+        if (quizButtonState[item]){
+            filters.push(item)
         }else{
-            filters = filters.filter((x)=>x!==item)
-            console.log(filters)
+            filters.filter(x => filters[x]!==item)
         }
-        
-        // setQuizButtonState(quizButtonState[item]=true)
-        // console.log(quizButtonState)
+
+      console.log(filters)
     }
 
     // Will reset filters to all
     function resetFilters(){
         filters = [];
         setData(props.card_data);
+        setQuizButtonState({ 
+        'cheap flights':false,
+        'city':false,
+        'beach':false,
+        'mountains':false,
+        'within 50 mi':false,
+        'within 100 mi':false,
+        'vineyard':false,
+        'africa':false,
+        'asia':false,
+        'europe':false,
+        'north america':false});
+
     }
 
 
@@ -86,15 +86,18 @@ const Quiz = (props) =>{
         <Box pb='100px' pt='50px' maxW='60vw'>
             <FormControl> 
                 <HStack>
-                    <Wrap>
+                    <Wrap
+                        value={filters}
+                    >
                         {props.attributes.map((item, index) => 
                             (     
-                                <Box onClick={() => handleFilterButtonClick(item)}>
-                                    <QuizButton
-                                        className="quiz-button"
-                                        name = {item}  
-                                    />
-                                </Box>    
+                                <Button 
+                                    value={item} 
+                                    colorScheme='teal'
+                                    variant={quizButtonState[item]===true? 'solid':'outline'}
+                                    onClick={()=>handleFilterButtonClick(item)}>
+                                            {item}
+                                </Button>     
                             ))}
                     </Wrap>
                     <Spacer/>

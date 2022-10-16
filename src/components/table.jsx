@@ -6,22 +6,22 @@ import {
     Wrap,
     Center,
     WrapItem,
-    VStack
-
+    VStack,
+    FormControl,
+    FormLabel,
   } from '@chakra-ui/react';
   import {category_hex} from '../config';
 
   
 
 
-const VacationTable = React.forwardRef(({card_data}) => {
+function VacationTable (props) {
 
     return (
         <Box>
             <Center>
-
             <Wrap spacing='1vw'>
-            {card_data.map((item, index) => 
+            {props.card_data.map((item, index) => 
                 (
                     <Box  boxShadow='base' maxWidth='19vw' minWidth='15vw' mb='100px'>
                         <VStack>
@@ -29,12 +29,17 @@ const VacationTable = React.forwardRef(({card_data}) => {
                         <Text className='title-2' fontWeight='bold'>
                             {item.location}
                         </Text>
-                        <Wrap>
+                        <Wrap position='left'>
                             {item.categories.map((category, index) => 
                                 ( 
-                                    <WrapItem bgColor={category_hex[category]} w='fit-content' pl={2} pr={2} borderRadius={5}>
+                                    <Box 
+                                        bgColor={category_hex[category]} 
+                                        w='fit-content' 
+                                        pl={2} 
+                                        pr={2} 
+                                        borderRadius={5}>
                                         {category}
-                                        </WrapItem>
+                                    </Box>
                             ))}
                         </Wrap>
                         <Text className='title-2'>
@@ -50,6 +55,6 @@ const VacationTable = React.forwardRef(({card_data}) => {
         </Box>
         
     );
-})
+}
 
 export default VacationTable;

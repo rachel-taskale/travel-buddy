@@ -1,17 +1,16 @@
-import {React, useState} from 'react';
+import { React, useState} from 'react';
 import {Button} from '@chakra-ui/react';
 
 
-function QuizButton(props){
-    const [active, setActive] = useState('false');
+const QuizButton=(props) =>{
+    const [active, setActive] = useState(false);
     return(
         <Button 
             colorScheme='teal' 
             variant={`${active? "outline":"solid"}`}
-            onClick={()=> {setActive(active===false? true : false); console.log(active)}}
-        >
-                {props.name}
-        </Button>
+            onClick={()=> {setActive(props.active===false? true : false); console.log(active)}}
+            onChange={()=> {setActive(props.active===false? true : false); console.log(active)}}
+        >{props.name} {props.active}</Button>
     )
 }
 
