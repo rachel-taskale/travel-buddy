@@ -1,5 +1,5 @@
 # Todos:
-* OnReset button should update state of Quiz Buttons to not active
+* Fix filter with new quix button scheme
 * OnClick of Quiz Buttons should show chosen filters below?
 * Connect to Firebase database
 * Add in real data
